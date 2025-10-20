@@ -1,6 +1,5 @@
 package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,26 +11,31 @@ import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.CreateP
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.DeleteProductoUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.FindProductoUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.UpdateProductoUseCase;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.repository.mock.ProductoRepositoryMockImpl;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class ProductConfig {
-@Bean
-    public CreateProductoUseCase createProductoUseCase() {
-        return new CreateProductoUseCase();
-    }
+    
     @Bean
-    public CreateProductoService createProductoService(){
+    public CreateProductoUseCase createProductoUseCase() {
+        // Añadimos en la llamada una instancia de nuestro MOCK.
+        return new CreateProductoUseCase(new ProductoRepositoryMockImpl());
+    }
+
+    @Bean
+    public CreateProductoService createProductoService() {
         return new CreateProductoService(createProductoUseCase());
     }
+
     @Bean
-    public FindProductoUseCase findProductoUseCase(){
+    public FindProductoUseCase findProductoUseCase() {
         return new FindProductoUseCase();
     }
 
     @Bean
-    public FindProductoService findProductoService(){
+    public FindProductoService findProductoService() {
         return new FindProductoService(findProductoUseCase());
     }
 
@@ -54,4 +58,5 @@ public class ProductConfig {
     public UpdateProductoService updateProductoService() {
         return new UpdateProductoService(updateProductoUseCase());
     }
+
 }
