@@ -7,9 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.CreateProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.DeleteProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.FindProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.services.UpdateProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.CreateProductoUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.DeleteProductoUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.FindProductoUseCase;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.UpdateProductoUseCase;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -41,5 +43,15 @@ public class ProductConfig {
     @Bean
     public DeleteProductoService deleteProductoService() {
         return new DeleteProductoService(deleteProductoUseCase());
+    }
+
+    @Bean
+    public UpdateProductoUseCase updateProductoUseCase() {
+        return new UpdateProductoUseCase();
+    }
+
+    @Bean
+    public UpdateProductoService updateProductoService() {
+        return new UpdateProductoService(updateProductoUseCase());
     }
 }

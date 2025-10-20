@@ -4,9 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.etg.daw.dawes.java.rest.restfull.productos.application.command.CreateProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.EditProductoCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.CreateProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.DeleteProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.FindProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.services.UpdateProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoRequest;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -32,6 +35,7 @@ private final CreateProductoService createProductoService;
 // Nuevo atributo
 private final FindProductoService findProductoService;
 private final DeleteProductoService deleteProductoService;
+private final UpdateProductoService updateProductoService;
 
 	@PostMapping //Método Post
 	public ResponseEntity<ProductoResponse> createProducto(@RequestBody ProductoRequest productoRequest) {
@@ -53,5 +57,12 @@ private final DeleteProductoService deleteProductoService;
     public ResponseEntity<?>  deleteProducto(@PathVariable int id) {
         deleteProductoService.delete(id);
         return ResponseEntity.noContent().build(); //Devpñvemos una respuesta vacía.
+    }
+
+     @PutMapping("/{id}")
+    public ProductoResponse editProducto(@PathVariable int id, @RequestBody ProductoRequest productoRequest){
+        EditProductoCommand comando = ProductoMapper.toCommand(id, productoRequest);
+        Producto producto = updateProductoService.update(comando);
+        return  ProductoMapper.toResponse(producto); //Respuesta
     }
 }
