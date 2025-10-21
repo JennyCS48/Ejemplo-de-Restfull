@@ -5,19 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.ProductoRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class FindProductoUseCase {
+
+private ProductoRepository productoRepository;
+
+
  public List<Producto> findAll(){
         //TODO Habría que implementarlo con un acceso real a los datos. 
         // lo vamos a simular
         List<Producto> lista = new ArrayList<>();
-        lista.add(new Producto(1, "Producto1", 1, LocalDateTime.now()));
-        lista.add(new Producto(2, "Producto2", 1, LocalDateTime.now()));
-        lista.add(new Producto(3, "Producto3", 1, LocalDateTime.now()));
-
-        return lista;
+       
+        return lista = productoRepository.getAll();
 
     }
 }

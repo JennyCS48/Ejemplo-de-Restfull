@@ -7,14 +7,24 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.ProductoRepository;
+
+@Repository
 public class ProductoRepositoryMockImpl implements ProductoRepository {
 
     private final Map<Integer, Producto> productos = ProductoFactory.getDemoData();
 
     @Override
     public Producto save(Producto t) {
+        if(t.getId()==0){
+            t.setId(obtenerSiguienteId());
+        }
         productos.put(t.getId(), t);
+    
         return t;
+    }
+
+    private int obtenerSiguienteId(){
+        return productos.size()+1;
     }
 
     @Override
