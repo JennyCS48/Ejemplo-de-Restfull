@@ -13,6 +13,7 @@ import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -38,7 +39,7 @@ private final DeleteProductoService deleteProductoService;
 private final UpdateProductoService updateProductoService;
 
 	@PostMapping //Método Post
-	public ResponseEntity<ProductoResponse> createProducto(@RequestBody ProductoRequest productoRequest) {
+	public ResponseEntity<ProductoResponse> createProducto(@Valid @RequestBody ProductoRequest productoRequest) {
 		CreateProductoCommand comando = ProductoMapper.toCommand(productoRequest); 
 		Producto producto = createProductoService.createProducto(comando);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ProductoMapper.toResponse(producto)); //Respuestagit@github.com:julparper/dawes-springboot-restful.git
