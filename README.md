@@ -1,1 +1,1 @@
-002 es para validar datos de entrada
+Este proyecto usa dev container
