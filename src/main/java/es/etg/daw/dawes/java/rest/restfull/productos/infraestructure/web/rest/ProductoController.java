@@ -58,6 +58,8 @@ public class ProductoController {
 
     @GetMapping 
     public List<ProductoResponse> allProductos(){
+       //if(true) throw new NullPointerException();
+
         if("1.0".equals(apiVersion)){
             return findProductoService.findAll()
                     .stream() //Convierte la lista en un flujo
