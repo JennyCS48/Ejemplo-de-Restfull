@@ -3,6 +3,7 @@ package es.etg.daw.dawes.java.rest.restfull.productos.application.services.produ
 import org.springframework.stereotype.Service;
 
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.productos.DeleteProductoUseCase;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -10,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class DeleteProductoService {
  private final DeleteProductoUseCase deleteProductoUseCase;
     
-    public void delete(int id){
+    public void delete(ProductoId id){
         deleteProductoUseCase.delete(id);
     }
 

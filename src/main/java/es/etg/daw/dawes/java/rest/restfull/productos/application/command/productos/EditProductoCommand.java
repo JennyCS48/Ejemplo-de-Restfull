@@ -1,5 +1,6 @@
 package es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos;
 
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -9,7 +10,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Accessors(fluent = true) // Así los getters no llevan prefijo gets
 public class EditProductoCommand {
-    private int id;
+    private ProductoId id;
 	private String nombre;
 	private double precio;
 }

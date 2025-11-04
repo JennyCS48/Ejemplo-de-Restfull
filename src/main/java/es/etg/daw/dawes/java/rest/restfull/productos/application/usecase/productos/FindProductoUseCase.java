@@ -6,7 +6,7 @@ import es.etg.daw.dawes.java.rest.restfull.productos.domain.error.ProductoNotFou
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.ProductoRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
 
 @AllArgsConstructor
 public class FindProductoUseCase {

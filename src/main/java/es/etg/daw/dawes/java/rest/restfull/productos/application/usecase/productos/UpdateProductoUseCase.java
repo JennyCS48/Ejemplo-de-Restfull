@@ -1,6 +1,6 @@
 package es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.productos;
 
-import java.time.LocalDateTime;
+
 
 import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.EditProductoCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.error.ProductoNotFoundException;
@@ -24,7 +24,7 @@ public class UpdateProductoUseCase {
                     p.setPrecio(command.precio());
                     return productoRepository.save(p);
                 })
-                .orElseThrow(() -> new ProductoNotFoundException(command.id()));
+                .orElseThrow(() -> new ProductoNotFoundException(command.id().getValue()));
 
     }
 }

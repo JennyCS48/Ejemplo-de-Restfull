@@ -1,5 +1,6 @@
 package es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.productos;
 
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.ProductoRepository;
 import lombok.AllArgsConstructor;
 
@@ -8,7 +9,7 @@ public class DeleteProductoUseCase {
 
     private ProductoRepository productoRepository;
 
-    public void delete(int id) {
+    public void delete(ProductoId id) {
 
         // TODO en un futuro alguien lo borrará
 
