@@ -1,8 +1,8 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.application.usecase;
+package es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.productos;
 
 import java.time.LocalDateTime;
 
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.CreateProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.CreateProductoCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.ProductoRepository;
 import lombok.AllArgsConstructor;

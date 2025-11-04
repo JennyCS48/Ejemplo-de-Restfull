@@ -1,8 +1,8 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.application.services;
+package es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto;
 
 import org.springframework.stereotype.Service;
 
-import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.DeleteProductoUseCase;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.productos.DeleteProductoUseCase;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

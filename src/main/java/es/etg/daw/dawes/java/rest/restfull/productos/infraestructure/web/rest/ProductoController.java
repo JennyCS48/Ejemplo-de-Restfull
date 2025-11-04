@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.CreateProductoCommand;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.EditProductoCommand;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.services.CreateProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.services.DeleteProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.services.FindProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.services.UpdateProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.CreateProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.EditProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.CreateProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.DeleteProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.FindProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.UpdateProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoRequest;

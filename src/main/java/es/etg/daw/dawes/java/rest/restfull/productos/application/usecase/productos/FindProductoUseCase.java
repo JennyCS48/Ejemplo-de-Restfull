@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.application.usecase;
+package es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.productos;
 
 import java.util.List;
 
