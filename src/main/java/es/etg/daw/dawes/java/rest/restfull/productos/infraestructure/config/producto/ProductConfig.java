@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.config;
+package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.config.producto;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
