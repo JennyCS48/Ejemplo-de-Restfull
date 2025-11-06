@@ -3,6 +3,7 @@ package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.CreateProductoCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.EditProductoCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoResponse;
 
@@ -12,13 +13,13 @@ public class ProductoMapper {
 	}
 
 	public static ProductoResponse toResponse(Producto producto){
-		return new ProductoResponse(producto.getId(),
+		return new ProductoResponse(producto.getId().getValue(),
 									producto.getNombre(),
 									producto.getPrecio(),
 									producto.getCreatedAt());
 	}
 
 	public static EditProductoCommand toCommand(int id, ProductoRequest productoRequest){
-		return new EditProductoCommand(id, productoRequest.nombre(), productoRequest.precio());
+		return new EditProductoCommand( new ProductoId (id), productoRequest.nombre(), productoRequest.precio());
 	}
 }
