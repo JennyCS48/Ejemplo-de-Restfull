@@ -13,10 +13,11 @@ public class ProductoMapper {
 	}
 
 	public static ProductoResponse toResponse(Producto producto){
-		return new ProductoResponse(producto.getId().getValue(),
+		return new ProductoResponse(producto.getId().getValue(),  //lo pasamos a int
 									producto.getNombre(),
 									producto.getPrecio(),
-									producto.getCreatedAt());
+									producto.getCreatedAt(),
+									producto.getCategoria().getValue()); //Agregamos la categoria.
 	}
 
 	public static EditProductoCommand toCommand(int id, ProductoRequest productoRequest){
