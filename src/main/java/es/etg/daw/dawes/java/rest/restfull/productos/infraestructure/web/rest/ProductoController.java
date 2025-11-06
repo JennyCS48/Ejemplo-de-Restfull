@@ -12,6 +12,7 @@ import es.etg.daw.dawes.java.rest.restfull.productos.application.services.produc
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.FindProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.UpdateProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoResponse;
@@ -73,7 +74,7 @@ public class ProductoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProducto(@PathVariable int id) {
-        deleteProductoService.delete(id);
+        deleteProductoService.delete(new ProductoId (id)); //convertimos id en ProductoId
         return ResponseEntity.noContent().build(); // Devpñvemos una respuesta vacía.
     }
 
