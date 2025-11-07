@@ -3,7 +3,6 @@ package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.rest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,25 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
 import es.etg.daw.dawes.java.rest.restfull.productos.application.command.categoria.CreateCategoriaCommand;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.CreateProductoCommand;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.EditProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.categoria.EditCategoriaCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.categoria.CreateCategoriaService;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.categoria.DeleteCategoriaService;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.categoria.EditCategoriaService;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.services.categoria.FindCategoriaService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.CreateProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.DeleteProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.FindProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.services.producto.UpdateProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Categoria;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.CategoriaId;
-import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
-import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
-import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
-import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoRequest;
-import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoResponse;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.CategoriaMapper;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.categoria.CategoriaRequest;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.categoria.CategoriaResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -86,9 +77,9 @@ public class CategoriaController {
 
     @PutMapping("/{id}")
     public CategoriaResponse editCategoria(@PathVariable int id, @RequestBody CategoriaRequest categoriaRequest) {
-        EditProductoCommand comando = ProductoMapper.toCommand(id, productoRequest);
-        Producto producto = updateProductoService.update(comando);
-        return ProductoMapper.toResponse(producto); // Respuesta
+        EditCategoriaCommand comando = CategoriaMapper.toCommand(id, categoriaRequest);
+        Categoria categoria = editCategoriaService.update(comando);
+        return CategoriaMapper.toResponse(categoria); // Respuesta
     }
 
     // Método que captura los errores y devuelve un mapa con el campo que no cumple
