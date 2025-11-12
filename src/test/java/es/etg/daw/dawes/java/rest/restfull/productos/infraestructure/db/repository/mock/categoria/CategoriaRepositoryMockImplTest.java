@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Categoria;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.CategoriaId;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.CategoriaRepository;
 
 public class CategoriaRepositoryMockImplTest {
@@ -42,5 +43,25 @@ public class CategoriaRepositoryMockImplTest {
                 () -> assertNotNull(categorias),
                 () -> assertEquals(CategoriaFactory.getDemoData().size(), categorias.size())
         );
+    }
+
+     @Test
+    void getById() {
+        int idEsperado = 1;
+        var categoria = repository.getById(new CategoriaId(1));
+        assertAll(
+                () -> assertNotNull(categoria),
+                () -> assertEquals(idEsperado, categoria.get().getId().getValue())
+        );
+
+    }
+
+    @Test
+    void deteteById() {
+        repository.deteteById(new CategoriaId(1));
+        var categoria = repository.getById(new CategoriaId(1));
+        assertAll(
+                () -> assertNotNull(categoria),
+                () -> assertEquals(false, categoria.isPresent()));
     }
 }
