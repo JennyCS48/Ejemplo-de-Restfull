@@ -20,4 +20,10 @@ public class ProductoFactory {
         
         return datos;
     }
+
+    public static final Producto create() {
+        return new Producto(new ProductoId(1), "Producto prueba: Leche", 5.99, LocalDateTime.now(), new CategoriaId(1));
+    }
+
+
 }
