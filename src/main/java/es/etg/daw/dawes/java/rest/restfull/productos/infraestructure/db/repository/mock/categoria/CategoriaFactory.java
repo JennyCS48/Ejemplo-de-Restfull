@@ -17,4 +17,8 @@ public class CategoriaFactory {
         
         return datos;
     }
+
+    public static Categoria create() {
+        return new Categoria(new CategoriaId(1), "Nombre categoria nueva", LocalDateTime.now());
+    }
 }
