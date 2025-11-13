@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.validation;
+package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.validation.producto;
 
 import jakarta.validation.Payload;
 
