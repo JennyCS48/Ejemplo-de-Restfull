@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.rest.producto;
+package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.rest.categoria;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,10 +29,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Categoria;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.CategoriaId;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.repository.mock.categoria.CategoriaFactory;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.repository.mock.producto.ProductoFactory;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.categoria.CategoriaRequest;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.categoria.CategoriaResponse;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoResponse;
 
@@ -46,10 +50,10 @@ import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.pro
     // Limpiamos el contexto antes de cada test (queremos que todas las pruebas se ejecuten sin datos de otras)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 
-public class ProductoControllerIT {
+public class CategoriaControllerIT {
 
         //Constante para las rutas
-    public static String ENDPOINT = "/productos";
+    public static String ENDPOINT = "/categorias";
 
         //Json
     private ObjectMapper mapper = new ObjectMapper();
@@ -62,11 +66,11 @@ public class ProductoControllerIT {
 
         // Para metodos que tienen una request
     @Autowired
-    private JacksonTester<ProductoRequest> jsonProductoRequest;
+    private JacksonTester< CategoriaRequest> jsonCategoriaRequest;
 
         // Para métodos que devuelve una respuesta
     @Autowired
-    private JacksonTester<ProductoResponse> jsonProductoResponse;
+    private JacksonTester<CategoriaResponse> jsonCategoriaResponse;
 
     @BeforeEach
     public void setUp(){
@@ -78,9 +82,9 @@ public class ProductoControllerIT {
     
     @Test
     @Order(1) //Quiero que se ejecute la primera
-    public void When_Get_AllProductos_Expect_Lista() throws Exception {
+    public void When_Get_AllCategorias_Expect_Lista() throws Exception {
             //Productos esperados
-        int numProductos = ProductoFactory.getDemoData().values().size();
+        int numCategorias = CategoriaFactory.getDemoData().values().size();
 
             // Realizo la petición
         MockHttpServletResponse response = mockMvc.perform(
@@ -90,42 +94,40 @@ public class ProductoControllerIT {
 
 
             //Gestiono la respuesta
-        List<ProductoResponse>  res = mapper.readValue(response.getContentAsString(),
-                mapper.getTypeFactory().constructCollectionType(List.class, ProductoResponse.class));
+        List<CategoriaResponse>  res = mapper.readValue(response.getContentAsString(),
+                mapper.getTypeFactory().constructCollectionType(List.class, CategoriaResponse.class));
 
         
             //Evaluo la salida
         assertAll(
                 () -> assertEquals(response.getStatus(), HttpStatus.OK.value()), //Ha ido bien
-                () -> assertTrue(res.size() == numProductos)
+                () -> assertTrue(res.size() == numCategorias)
         );
     }
 
     @Test
     @Order(10)
-    public void When_Post_CreateProducto() throws Exception{
-        Producto nuevo = ProductoFactory.create();
+    public void When_Post_CreateCategoria() throws Exception{
+        Categoria nuevo = CategoriaFactory.create();
 
-        ProductoRequest req = new ProductoRequest(nuevo);
+        CategoriaRequest req = new CategoriaRequest(nuevo);
 
             //Realizo la petición POST
         MockHttpServletResponse response = mockMvc.perform(
                         post(ENDPOINT)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 // Le paso el body
-                                .content(jsonProductoRequest.write(req).getJson())
+                                .content(jsonCategoriaRequest.write(req).getJson())
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
             //Gestiono la respuesta
-        ProductoResponse res = mapper.readValue(response.getContentAsString(), ProductoResponse.class);
+        CategoriaResponse res = mapper.readValue(response.getContentAsString(), CategoriaResponse.class);
 
                     //Evaluo la salida
         assertAll(
                 () -> assertEquals(response.getStatus(), HttpStatus.CREATED.value()), //Ha ido bien
                 () -> assertEquals(res.nombre(), nuevo.getNombre()),
-                () -> assertEquals(res.precio(), nuevo.getPrecio()),
-                () -> assertEquals(res.categoria(), nuevo.getCategoria().getValue()),
                 () -> assertTrue(res.id()>0)
         );
     }
@@ -137,11 +139,11 @@ public class ProductoControllerIT {
      */
     @Test
     @Order(11)
-    public void Error_ValidationError_When_CreateProducto_EmptyNombre() throws Exception{
-        Producto nuevo = ProductoFactory.create();
+    public void Error_ValidationError_When_CreateCategoria_EmptyNombre() throws Exception{
+        Categoria nuevo = CategoriaFactory.create();
         nuevo.setNombre(null);
 
-        ProductoRequest req = new ProductoRequest(nuevo);
+        CategoriaRequest req = new CategoriaRequest(nuevo);
         
 
             //Realizo la petición POST
@@ -149,7 +151,7 @@ public class ProductoControllerIT {
                         post(ENDPOINT)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 // Le paso el body
-                                .content(jsonProductoRequest.write(req).getJson())
+                                .content(jsonCategoriaRequest.write(req).getJson())
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
@@ -163,11 +165,11 @@ public class ProductoControllerIT {
 
     @Test
     @Order(20)
-    public void When_Put_EditProducto() throws Exception{
-        Producto nuevo = ProductoFactory.create();
-        nuevo.setId(new ProductoId(1));
+    public void When_Put_EditCategoria() throws Exception{
+        Categoria nuevo = CategoriaFactory.create();
+        nuevo.setId(new CategoriaId(1));
 
-        ProductoRequest req = new ProductoRequest(nuevo);
+        CategoriaRequest req = new CategoriaRequest(nuevo);
 
             //Realizo la petición POST
         MockHttpServletResponse response = mockMvc.perform(
@@ -175,19 +177,17 @@ public class ProductoControllerIT {
                         put(ENDPOINT+"/"+nuevo.getId().getValue())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 // Le paso el body
-                                .content(jsonProductoRequest.write(req).getJson())
+                                .content(jsonCategoriaRequest.write(req).getJson())
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
             //Gestiono la respuesta
-        ProductoResponse res = mapper.readValue(response.getContentAsString(), ProductoResponse.class);
+        CategoriaResponse res = mapper.readValue(response.getContentAsString(), CategoriaResponse.class);
 
                     //Evaluo la salida
         assertAll(
                 () -> assertEquals(response.getStatus(), HttpStatus.OK.value()), //Ha ido bien
                 () -> assertEquals(res.nombre(), nuevo.getNombre()),
-                () -> assertEquals(res.precio(), nuevo.getPrecio()),
-                () -> assertEquals(res.categoria(), nuevo.getCategoria().getValue()),
                 () -> assertEquals(res.id(), nuevo.getId().getValue())
         );
     }
@@ -195,11 +195,11 @@ public class ProductoControllerIT {
 
     @Test
     @Order(30)
-    public void When_Delete_DeleteProducto() throws Exception{
-        Producto nuevo = ProductoFactory.create();
-        nuevo.setId(new ProductoId(1));
+    public void When_Delete_DeleteCategoria() throws Exception{
+        Categoria nuevo = CategoriaFactory.create();
+        nuevo.setId(new CategoriaId(1));
 
-        ProductoRequest req = new ProductoRequest(nuevo);
+        CategoriaRequest req = new CategoriaRequest(nuevo);
 
             //Realizo la petición POST
         MockHttpServletResponse response = mockMvc.perform(
@@ -207,7 +207,7 @@ public class ProductoControllerIT {
                         delete(ENDPOINT+"/"+nuevo.getId().getValue())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 // Le paso el body
-                                .content(jsonProductoRequest.write(req).getJson())
+                                .content(jsonCategoriaRequest.write(req).getJson())
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
