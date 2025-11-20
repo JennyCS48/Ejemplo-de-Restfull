@@ -8,6 +8,32 @@ import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.cat
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.categoria.CategoriaResponse;
 
 public class CategoriaMapper {
+
+	public static CategoriaEntity toEntity(Categoria c){
+
+		CategoriaId id = c.getId();
+		return CategoriaEntity.builder().id(id!=null?id.getValue():null)
+									.nombre(c.getNombre());
+									.build();
+	}
+
+	public static Categoria toDomain(CategoriaEntity c){
+    	return Categoria.builder().id(new CategoriaId(c.getId()))
+                                .nombre(c.getNombre())
+                                .build();
+
+    }
+
+	public static List<Categoria> toDomain(List<CategoriaEntity> lista){
+        List<Categoria> lc = new ArrayList<>();
+        for(CategoriaEntity ce: lista){
+            lc.add(toDomain(ce));
+        }
+        return lc;
+    }
+
+
+	
     public static CreateCategoriaCommand toCommand(CategoriaRequest categoriaRequest){
 		return new CreateCategoriaCommand(categoriaRequest.nombre());
 	}
