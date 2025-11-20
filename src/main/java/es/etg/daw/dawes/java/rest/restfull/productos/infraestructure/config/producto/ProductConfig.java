@@ -24,7 +24,7 @@ public class ProductConfig {
 
     // Creo por configuración la instalacia que me interesa del productoRepository (desde jpa)
     @Bean
-    public  ProductoRepository productoRepository(){
+    public ProductoRepository productoRepository(){
         return new ProductoJpaRepositoryImpl(productoRepository);
     }
     

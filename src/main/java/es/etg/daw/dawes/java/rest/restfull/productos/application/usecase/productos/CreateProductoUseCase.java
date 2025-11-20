@@ -23,8 +23,8 @@ public class CreateProductoUseCase {
 				.createdAt(LocalDateTime.now()).build();
 				
 
-		productoRepository.save(producto); // base de datos.
-		return producto;
+		 // base de datos.
+		return productoRepository.save(producto);
 
 	}
 }
