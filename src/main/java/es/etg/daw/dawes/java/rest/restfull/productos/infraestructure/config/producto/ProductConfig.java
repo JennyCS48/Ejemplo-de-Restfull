@@ -18,7 +18,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductConfig {
 
-    private final ProductoRepository productoRepository;
+    private final ProductoEntityJpaRepository productoRepository;
+
+    // Creo por configuración la instalacia que me interesa del productoRepository (desde jpa)
+    @Bean
+    public  ProductoRepository productoRepository(){
+        return new ProductoJpaRepositoryImpl(productoRepository);
+    }
+    
     
     @Bean
     public CreateProductoUseCase createProductoUseCase() {
