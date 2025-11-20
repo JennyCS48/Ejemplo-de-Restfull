@@ -9,6 +9,40 @@ import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.pro
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoResponse;
 
 public class ProductoMapper {
+
+	public static ProductoEntity toEntity(Producto p){
+
+        // Defino la categoría
+        CategoriaEntity cat = new CategoriaEntity();
+        cat.setId(p.getCategoria().getValue());
+        ProductoId id = p.getId();
+        return ProductoEntity.builder().id(id!=null?id.getValue():null)
+                                        .nombre(p.getNombre())
+                                       .precio(new BigDecimal(p.getPrecio()))
+                                       .fechaCreacion(p.getCreatedAt())
+                                       .categoria(cat)
+                                       .build();
+
+    }
+
+    public static Producto toDomain(ProductoEntity p){
+        return Producto.builder().id(new ProductoId(p.getId()))
+                                 .nombre(p.getNombre())
+                                 .precio(p.getPrecio().doubleValue())
+                                 .createdAt(p.getFechaCreacion())
+                                 .categoria(new CategoriaId(p.getCategoria().getId()))
+                                 .build();
+
+    }
+
+    public static List<Producto> toDomain(List<ProductoEntity> lista){
+        List<Producto> lp = new ArrayList<>();
+        for(ProductoEntity pe: lista){
+            lp.add(toDomain(pe));
+        }
+        return lp;
+    }
+
     public static CreateProductoCommand toCommand(ProductoRequest productoRequest){
 		return new CreateProductoCommand(productoRequest.nombre(), productoRequest.precio(), new CategoriaId(productoRequest.categoria()));
 	}
