@@ -12,12 +12,20 @@ import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.categor
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.categoria.EditCategoriaUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.categoria.FindCategoriaUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.CategoriaRepository;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.repository.CategoriaEntityJpaRepository;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class CategoriaConfig {
-     private final CategoriaRepository categoriaRepository;
+
+     private final CategoriaEntityJpaRepository categoriaRepository;
+
+    // Creo por configuración la instalacia que me interesa del productoRepository (desde jpa)
+    @Bean
+    public  CategoriaRepository categoriaRepository(){
+        return new CategoriaJpaRepositoryImpl(categoriaRepository);
+    }
 
     @Bean
     public CreateCategoriaUseCase createCategoriaUseCase() {
