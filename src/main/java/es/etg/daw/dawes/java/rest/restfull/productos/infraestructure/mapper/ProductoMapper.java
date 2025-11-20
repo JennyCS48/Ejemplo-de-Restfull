@@ -1,10 +1,16 @@
 package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.CreateProductoCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.command.productos.EditProductoCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.CategoriaId;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.entity.CategoriaEntity;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.entity.ProductoEntity;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoResponse;
 

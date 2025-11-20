@@ -2,7 +2,6 @@ package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.rep
 
 import java.util.List;
 import java.util.Optional;
-
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Categoria;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.CategoriaId;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.CategoriaRepository;
@@ -18,14 +17,14 @@ public class CategoriaJpaRepositoryImpl implements CategoriaRepository{
 
     @Override
     public Categoria save(Categoria t) {
-
-        CategoriaEntity cat = CategoriaMapper.toEntity(t);
+       CategoriaEntity cat = CategoriaMapper.toEntity(t);
         return CategoriaMapper.toDomain(repository.save(cat));
     }
 
     @Override
     public List<Categoria> getAll() {
         return CategoriaMapper.toDomain(repository.findAll());
+
     }
 
     @Override

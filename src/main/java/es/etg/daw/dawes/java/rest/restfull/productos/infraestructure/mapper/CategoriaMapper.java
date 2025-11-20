@@ -1,9 +1,12 @@
 package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.command.categoria.CreateCategoriaCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.command.categoria.EditCategoriaCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Categoria;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.CategoriaId;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.entity.CategoriaEntity;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.categoria.CategoriaRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.categoria.CategoriaResponse;
 
@@ -13,7 +16,7 @@ public class CategoriaMapper {
 
 		CategoriaId id = c.getId();
 		return CategoriaEntity.builder().id(id!=null?id.getValue():null)
-									.nombre(c.getNombre());
+									.nombre(c.getNombre())
 									.build();
 	}
 
