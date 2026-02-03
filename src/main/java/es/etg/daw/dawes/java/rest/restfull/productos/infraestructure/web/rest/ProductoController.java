@@ -16,6 +16,10 @@ import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -39,7 +43,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/productos") // La url será /productos
 @RequiredArgsConstructor
+@Tag(name = "Productos", description = "Operaciones relacionadas con la gestión de productos")
 public class ProductoController {
+
     private final CreateProductoService createProductoService;
     // Nuevo atributo
     private final FindProductoService findProductoService;
@@ -57,16 +63,25 @@ public class ProductoController {
     @Value("${api.version}")
     private String apiVersion;
 
-    @GetMapping 
-    public List<ProductoResponse> allProductos(){
-       //if(true) throw new NullPointerException();
+    @Operation(
+            summary = "Obtiene el listado de productos",
+            description = "Busca en la base de datos todos los productos y sus detalles"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Listado de productos generado"),
+        @ApiResponse(responseCode = "404", description = "No hay productos en la base de datos")
+    })
 
-        if("1.0".equals(apiVersion)){
+    @GetMapping
+    public List<ProductoResponse> allProductos() {
+        //if(true) throw new NullPointerException();
+
+        if ("1.0".equals(apiVersion)) {
             return findProductoService.findAll()
                     .stream() //Convierte la lista en un flujo
                     .map(ProductoMapper::toResponse) //Mapeamos/Convertimos cada elemento del flujo (Producto) en un objeto de Respuesta (ProductoResponse)
                     .toList(); //Lo devuelve como una lista.
-        }else{
+        } else {
             // Lanzamos una excepción con el error
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Versión del API incorrecta");
         }
@@ -74,7 +89,7 @@ public class ProductoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProducto(@PathVariable int id) {
-        deleteProductoService.delete(new ProductoId (id)); //convertimos id en ProductoId
+        deleteProductoService.delete(new ProductoId(id)); //convertimos id en ProductoId
         return ResponseEntity.noContent().build(); // Devpñvemos una respuesta vacía.
     }
 
