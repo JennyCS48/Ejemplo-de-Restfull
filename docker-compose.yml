@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mi-api-rest:
-    image: jennycs48/restfull:v1
+    image: jennycs48/restfull:v2
     container_name: restful-container
     ports:
       - "8080:8080"
